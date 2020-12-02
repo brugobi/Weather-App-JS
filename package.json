@@ -33,7 +33,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "try": "webpack",
-    "server": "webpack serve --mode development --env development",
+    "server": "webpack serve --mode development --env development --port 8080",
     "build": "webpack --mode production"
   },
   "repository": {
