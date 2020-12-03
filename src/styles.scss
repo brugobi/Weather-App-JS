@@ -2,6 +2,15 @@
 
 @import "~bulma/bulma";
 
-h1 {
-  color: blue;
+html, body {
+  height: 100%;
+  background-color: rgb(17, 5, 99);
+}
+
+#wrapper {
+  min-height: 100%;
+}
+
+.is-half {
+  background-color: white;
 }
