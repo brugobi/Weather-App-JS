@@ -12,5 +12,12 @@ html, body {
 }
 
 .is-half {
-  background-color: white;
+  background-color: rgb(28, 84, 144);
+  //opacity: 10%;
+}
+
+.weather-icon {
+  border-radius: 5px;
+  height: 30vh;
+  background-color: rgb(124, 196, 238);
 }

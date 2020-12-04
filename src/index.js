@@ -10,6 +10,7 @@ import './styles.scss';
 const weatherIcon = document.querySelector(".weather-icon");
 const weatherDescription = document.querySelector(".description");
 const notification = document.querySelector('.notification');
+const temperature = document.querySelector('.temperature');
 const tempCelsius = document.querySelector('.temp-celsius');
 const location = document.querySelector('.location');
 const tempFahrenheit = document.querySelector('.temp-fahrenheit');
@@ -23,7 +24,7 @@ weather.temperature = {
 // app const
 const KELVIN = 273;
 // api key
-const KEY = '--';
+const KEY = '15b72f8181c849f71bb8b90b88730574';
 //const myKey = config.MY_KEY;
 
 // check browser support geolocation
@@ -44,7 +45,7 @@ function setPosition(position) {
 
 // show error if there is issue with geolocation
 function showError(error) {
-  notification.style.display = "block";
+  notification.style.display = 'block';
   notification.innerHTML = `<p> ${error.message}</p>`;
 }
 
@@ -66,12 +67,12 @@ function getWeather(latitude, longitude) {
     .then(function () {
       displayWeather();
     });
-} 
+}
 //display weather
 function displayWeather() {
   weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
   tempCelsius.innerHTML = `${weather.temperature.value}°C`;
-  tempFahrenheit.innerHTML = `${celsiusToFahrenheit(weather.temperature.value)}°F`;
+
   weatherDescription.innerHTML = weather.description;
   location.innerHTML = `${weather.city},${weather.country}`;
 }
@@ -82,3 +83,15 @@ function celsiusToFahrenheit(temperature) {
 }
 
 //when the user clicks on the temperature elements
+
+// temperature.addEventListener("click", function () {
+//   if (weather.temperature.value === undefined) return;
+
+//   if (weather.temperature.unit == "celsius") {
+//     temperature.classList.add('tempCelsius');
+//     temperature.innerHTML = `${weather.temperature.value}°C`
+//   } else {
+//     temperature.classList.add('tempFahrenheit');
+//     temperature.innerHTML = `${celsiusToFahrenheit(weather.temperature.value)}°F`;
+//   }
+// });
