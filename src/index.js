@@ -12,19 +12,21 @@ const weatherDescription = document.querySelector(".description");
 const notification = document.querySelector('.notification');
 const temperature = document.querySelector('.temperature');
 const tempCelsius = document.querySelector('.temp-celsius');
+const tempMin = document.getElementById("temMin");
+const tempMax = document.getElementById("temMax");
 const location = document.querySelector('.location');
 const tempFahrenheit = document.querySelector('.temp-fahrenheit');
 
 // app data
 const weather = {};
 weather.temperature = {
-  unit: "celsius"
+  unit: false
 }
 
 // app const
 const KELVIN = 273;
 // api key
-const KEY = '---';
+const KEY = '--';
 //const myKey = config.MY_KEY;
 
 // check browser support geolocation
@@ -59,6 +61,9 @@ function getWeather(latitude, longitude) {
     })
     .then(function (data) {
       weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+      //weather.temperature2 = Math.floor(data.main.temp_min.value - KELVIN);
+      //console.log(weather.temperature2.value);
+      //weather.temperature_max.value = Math.floor(data.main.temp_max - KELVIN);
       weather.description = data.weather[0].description;
       weather.iconId = data.weather[0].icon;
       weather.city = data.name;
@@ -72,7 +77,8 @@ function getWeather(latitude, longitude) {
 function displayWeather() {
   weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
   tempCelsius.innerHTML = `${weather.temperature.value}°C`;
-
+  //tempMin.innerHTML = `${weather.temperature2.value}°C |`;
+  //tempMax.innerHTML = `${weather.maxTemp.value}°C`;
   weatherDescription.innerHTML = weather.description;
   location.innerHTML = `${weather.city},${weather.country}`;
 }
@@ -82,16 +88,18 @@ function celsiusToFahrenheit(temperature) {
   return (temperature * (9 / 5)) + 32;
 }
 
-//when the user clicks on the temperature elements
+// toggle button to switch between C and F unit
+function ChangeTheUnitofTemperature() {
+  if (!weather.temperature.unit) {
+    weather.temperature.unit = true;
+    document.getElementById("btnTemp").innerHTML = `${celsiusToFahrenheit(weather.temperature.value)}°F`
+  } else {
+    weather.temperature.unit = false;
+    document.getElementById("btnTemp").innerHTML = `${weather.temperature.value}°C`;
+  }
+}
 
-// temperature.addEventListener("click", function () {
-//   if (weather.temperature.value === undefined) return;
-
-//   if (weather.temperature.unit == "celsius") {
-//     temperature.classList.add('tempCelsius');
-//     temperature.innerHTML = `${weather.temperature.value}°C`
-//   } else {
-//     temperature.classList.add('tempFahrenheit');
-//     temperature.innerHTML = `${celsiusToFahrenheit(weather.temperature.value)}°F`;
-//   }
-// });
+let btnTemp = document.getElementById("btnTemp");
+btnTemp.addEventListener("click", function () {
+  ChangeTheUnitofTemperature();
+});
