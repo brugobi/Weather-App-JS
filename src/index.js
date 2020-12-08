@@ -26,16 +26,8 @@ weather.temperature = {
 // app const
 const KELVIN = 273;
 // api key
-const KEY = '--';
+const KEY = '---';
 //const myKey = config.MY_KEY;
-
-// check browser support geolocation
-if ('geolocation' in navigator) {
-  navigator.geolocation.getCurrentPosition(setPosition, showError);
-} else {
-  notification.style.display = "block";
-  notification.innerHTML = "<p>Browser doesn't Support Geolocation</p>"
-}
 
 // user getCurrentPosition
 function setPosition(position) {
@@ -73,6 +65,40 @@ function getWeather(latitude, longitude) {
       displayWeather();
     });
 }
+
+let btnLocaltion = document.querySelector(".btnLocation");
+btnLocaltion.addEventListener("click", function () {
+  // check browser support geolocation
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(setPosition, showError);
+  } else {
+    notification.style.display = "block";
+    notification.innerHTML = "<p>Browser doesn't Support Geolocation</p>"
+  }
+});
+
+// async function getWeather(latitude, longitude) {
+//   let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
+//   console.log(api);
+  
+//   const response = await fetch(api)
+//   const data = await response.json();
+//   return data;
+//   getWeather().then(data => {
+//     weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+//     weather.temperature_max.value = Math.floor(data.main.temp_max - KELVIN);
+//     weather.description = data.weather[0].description;
+//     weather.iconId = data.weather[0].icon;
+//     weather.city = data.name;
+//     weather.country = data.sys.country;
+//   });
+  
+  //   .then(function () {
+  //     displayWeather();
+  //   });
+//}
+
+
 //display weather
 function displayWeather() {
   weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
@@ -85,7 +111,7 @@ function displayWeather() {
 
 // C to F conversion
 function celsiusToFahrenheit(temperature) {
-  return (temperature * (9 / 5)) + 32;
+  return Math.floor(temperature * (9 / 5)) + 32;
 }
 
 // toggle button to switch between C and F unit
