@@ -11,12 +11,11 @@ import './styles.scss';
 const weatherIcon = document.querySelector(".weather-icon");
 const weatherDescription = document.querySelector(".description");
 const notification = document.querySelector('.notification');
-const temperature = document.querySelector('.temperature');
 const tempCelsius = document.querySelector('.temp-celsius');
 const tempMin = document.getElementById("temMin");
 const tempMax = document.getElementById("temMax");
 const location = document.querySelector('.location');
-const tempFahrenheit = document.querySelector('.temp-fahrenheit');
+const inputCity = document.querySelector('.inputCity');
 
 // app data
 const weather = {};
@@ -26,8 +25,8 @@ weather.temperature = {
 
 // app const
 const KELVIN = 273;
-// api key
-const KEY = '---';
+// apis key
+const KEY = '--';
 //const myKey = config.MY_KEY;
 
 // user getCurrentPosition
@@ -44,36 +43,27 @@ function showError(error) {
   notification.innerHTML = `<p> ${error.message}</p>`;
 }
 
-// function getWeather(latitude, longitude) {
-//   let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
-//   console.log(api);
-//   fetch(api)
-//     .then(function (response) {
-//       let data = response.json();
-//       return data;
-//     })
-//     .then(function (data) {
-//       weather.temperature.value = Math.floor(data.main.temp - KELVIN);
-//       //weather.temperature2 = Math.floor(data.main.temp_min.value - KELVIN);
-//       //console.log(weather.temperature2.value);
-//       //weather.temperature_max.value = Math.floor(data.main.temp_max - KELVIN);
-//       weather.description = data.weather[0].description;
-//       weather.iconId = data.weather[0].icon;
-//       weather.city = data.name;
-//       weather.country = data.sys.country;
-//     })
-//     .then(function () {
-//       displayWeather();
-//     });
-// }
+// algolia
+const places = require("places.js");
+const options = {
+  type: "city"
+};
+
+const placesAutocomplete = places({
+  appId: '--',
+  apiKey: '--',
+  container: document.querySelector('#address-input')
+}).configure(options);
+
+placesAutocomplete.on("change", e => console.log(e.suggestion));
+
+// end algolia
 
 const getWeather = async (latitude, longitude) => {
   let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
-  console.log(api);
   try {
     const fetchRequest = await fetch(api);
     const data = await fetchRequest.json();
-    console.log(data);
     weather.temp = Math.floor(data.main.temp - KELVIN);
     weather.temp_min = Math.floor(data.main.temp_min - KELVIN);
     weather.temp_max = Math.floor(data.main.temp_max - KELVIN);
@@ -81,7 +71,6 @@ const getWeather = async (latitude, longitude) => {
     weather.iconId = data.weather[0].icon;
     weather.city = data.name;
     weather.country = data.sys.country;
-    console.log(weather);
     displayWeather();
   } catch (err) {
     console.log(err);
