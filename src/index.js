@@ -43,7 +43,7 @@ function showError(error) {
   notification.innerHTML = `<p> ${error.message}</p>`;
 }
 
-// algolia
+// algolia autocomplete
 const places = require("places.js");
 const options = {
   type: "city"
@@ -55,7 +55,9 @@ const placesAutocomplete = places({
   container: document.querySelector('#address-input')
 }).configure(options);
 
-placesAutocomplete.on("change", e => console.log(e.suggestion));
+placesAutocomplete.on("change", function (e) {
+  getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng);
+});
 
 // end algolia
 
