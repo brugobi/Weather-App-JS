@@ -15,7 +15,8 @@ const tempCelsius = document.querySelector('.temp-celsius');
 const tempMin = document.getElementById("temMin");
 const tempMax = document.getElementById("temMax");
 const location = document.querySelector('.location');
-const inputCity = document.querySelector('.inputCity');
+const todayDate = document.getElementById("todayDate");
+const inputCity = document.getElementById("address-input");
 
 // app data
 const weather = {};
@@ -26,22 +27,28 @@ weather.temperature = {
 // app const
 const KELVIN = 273;
 // apis key
-const KEY = '--';
+const KEY = '15b72f8181c849f71bb8b90b88730574';
 //const myKey = config.MY_KEY;
 
 // user getCurrentPosition
-function setPosition(position) {
+const setPosition = (position) => {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-
   getWeather(latitude, longitude);
-}
+};
 
 // show error if there is issue with geolocation
-function showError(error) {
+const showError = (error) => {
+  const errorContainer = document.getElementById("errorContainer");
+  const notificationDiv = document.createElement('div');
+  notificationDiv.classList.add('columns');
+  errorContainer.prepend(notificationDiv);
+  const notification = document.createElement('div');
+  notification.classList.add('notification', 'is-12');
+  notificationDiv.appendChild(notification);
   notification.style.display = 'block';
   notification.innerHTML = `<p> ${error.message}</p>`;
-}
+};
 
 // algolia autocomplete
 const places = require("places.js");
@@ -50,9 +57,9 @@ const options = {
 };
 
 const placesAutocomplete = places({
-  appId: '--',
-  apiKey: '--',
-  container: document.querySelector('#address-input')
+  appId: 'pl8ECVGE7327',
+  apiKey: 'de5a29b0a079311267e271c58510347c',
+  container: inputCity
 }).configure(options);
 
 placesAutocomplete.on("change", function (e) {
@@ -92,11 +99,10 @@ btnLocaltion.addEventListener("click", function () {
   }
 });
 
-
-
+// date
 
 //display weather
-function displayWeather() {
+const displayWeather = () => {
   console.log(weather);
   weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
   tempCelsius.innerHTML = `${weather.temp}°C`;
@@ -104,15 +110,16 @@ function displayWeather() {
   tempMax.innerHTML = `${weather.temp_max}`;
   weatherDescription.innerHTML = weather.description;
   location.innerHTML = `${weather.city},${weather.country}`;
-}
+  todayDate.innerHTML = `${new Date().toDateString()}`;
+};
 
 // C to F conversion
-function celsiusToFahrenheit(temperature) {
+const celsiusToFahrenheit = (temperature) => {
   return Math.floor(temperature * (9 / 5)) + 32;
-}
+};
 
 // toggle button to switch between C and F unit
-function ChangeTheUnitofTemperature() {
+const ChangeTheUnitofTemperature = () => {
   if (!weather.temperature.unit) {
     weather.temperature.unit = true;
     document.getElementById("btnTemp").innerHTML = `${celsiusToFahrenheit(weather.temp)}°F`;
@@ -124,7 +131,7 @@ function ChangeTheUnitofTemperature() {
     document.getElementById("temMin").innerHTML = `${weather.temp_min}|`;
     document.getElementById("temMax").innerHTML = `${weather.temp_max}`;
   }
-}
+};
 
 let btnTemp = document.getElementById("btnTemp");
 btnTemp.addEventListener("click", function () {
