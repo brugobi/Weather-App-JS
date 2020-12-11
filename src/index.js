@@ -10,7 +10,6 @@ import './styles.scss';
 //get the elements
 const weatherIcon = document.querySelector(".weather-icon");
 const weatherDescription = document.querySelector(".description");
-const notification = document.querySelector('.notification');
 const tempCelsius = document.querySelector('.temp-celsius');
 const tempMin = document.getElementById("temMin");
 const tempMax = document.getElementById("temMax");
@@ -27,15 +26,15 @@ weather.temperature = {
 // app const
 const KELVIN = 273;
 // apis key
-const KEY = '15b72f8181c849f71bb8b90b88730574';
+const KEY = '--';
 //const myKey = config.MY_KEY;
 
 // user getCurrentPosition
-const setPosition = (position) => {
+function setPosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   getWeather(latitude, longitude);
-};
+}
 
 // show error if there is issue with geolocation
 const showError = (error) => {
@@ -57,8 +56,8 @@ const options = {
 };
 
 const placesAutocomplete = places({
-  appId: 'pl8ECVGE7327',
-  apiKey: 'de5a29b0a079311267e271c58510347c',
+  appId: '--',
+  apiKey: '--',
   container: inputCity
 }).configure(options);
 
@@ -103,7 +102,6 @@ btnLocaltion.addEventListener("click", function () {
 
 //display weather
 const displayWeather = () => {
-  console.log(weather);
   weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
   tempCelsius.innerHTML = `${weather.temp}°C`;
   tempMin.innerHTML = `${weather.temp_min}|`;
