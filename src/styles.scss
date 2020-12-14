@@ -2,7 +2,8 @@
 
 @import "~bulma/bulma";
 
-html, body {
+html,
+body {
   height: 100%;
   background-color: rgb(17, 5, 99);
 }
@@ -13,10 +14,13 @@ html, body {
 
 .is-half {
   background-color: rgb(28, 84, 144);
-  //opacity: 10%;
 }
 
 .icon-div {
   border-radius: 5px;
   background-color: rgb(124, 196, 238);
+}
+
+.temperature {
+  cursor: pointer;
 }

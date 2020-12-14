@@ -54,10 +54,10 @@ module.exports = {
                 targets: {
                   esmodules: true,
                 },
-              }]
-            ]
-          }
-        }
+              }],
+            ],
+          },
+        },
       },
       {
         test: /\.(png|svg|jpe?g|gif)$/i,
