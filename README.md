@@ -1,6 +1,6 @@
 # Weather-App-JS
 
-> This is a responsive weather app page builded with JavaScript and APIs.
+> This is a responsive weather app page built with JavaScript and APIs.
 
 ## Feature
 
