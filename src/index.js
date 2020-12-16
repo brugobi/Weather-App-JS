@@ -22,7 +22,7 @@ const KELVIN = 273;
 const KEY = '15b72f8181c849f71bb8b90b88730574';
 
 const displayWeather = () => {
-  weatherIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
+  weatherIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
   tempCelsius.innerHTML = `${weather.temp}°C`;
   tempMin.innerHTML = `${weather.temp_min}|`;
   tempMax.innerHTML = `${weather.temp_max}`;
@@ -32,7 +32,7 @@ const displayWeather = () => {
 };
 
 const getWeather = async (latitude, longitude) => {
-  const api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
+  const api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
   try {
     const fetchRequest = await fetch(api);
     const data = await fetchRequest.json();
