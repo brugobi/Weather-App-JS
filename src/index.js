@@ -1,15 +1,10 @@
 import './styles.scss';
 import celsiusToFahrenheit from './functions';
 import showError from './dom';
+import { getWeather } from './api';
+import { displayWeather } from './dom';
 
-// get the elements
-const weatherIcon = document.querySelector('.weather-icon');
-const weatherDescription = document.querySelector('.description');
-const tempCelsius = document.querySelector('.temp-celsius');
-const tempMin = document.getElementById('temMin');
-const tempMax = document.getElementById('temMax');
-const location = document.querySelector('.location');
-const todayDate = document.getElementById('todayDate');
+
 const inputCity = document.getElementById('address-input');
 
 // app data
@@ -18,43 +13,11 @@ weather.temperature = {
   unit: false,
 };
 
-const KELVIN = 273;
-const KEY = '15b72f8181c849f71bb8b90b88730574';
-
-const displayWeather = () => {
-  weatherIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${weather.iconId}@2x.png">`;
-  tempCelsius.innerHTML = `${weather.temp}°C`;
-  tempMin.innerHTML = `${weather.temp_min}|`;
-  tempMax.innerHTML = `${weather.temp_max}`;
-  weatherDescription.innerHTML = weather.description;
-  location.innerHTML = `${weather.city},${weather.country}`;
-  todayDate.innerHTML = `${new Date().toDateString()}`;
-};
-
-const getWeather = async (latitude, longitude) => {
-  const api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
-  try {
-    const fetchRequest = await fetch(api);
-    const data = await fetchRequest.json();
-    weather.temp = Math.floor(data.main.temp - KELVIN);
-    weather.temp_min = Math.floor(data.main.temp_min - KELVIN);
-    weather.temp_max = Math.floor(data.main.temp_max - KELVIN);
-    weather.description = data.weather[0].description;
-    weather.iconId = data.weather[0].icon;
-    weather.city = data.name;
-    weather.country = data.sys.country;
-    displayWeather();
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-};
-
 // user getCurrentPosition
 const setPosition = (position) => {
   const { latitude } = position.coords;
   const { longitude } = position.coords;
-  getWeather(latitude, longitude);
+  getWeather(latitude, longitude, displayWeather, weather);
 };
 
 // algolia autocomplete
@@ -71,7 +34,7 @@ const placesAutocomplete = places({
 }).configure(options);
 
 placesAutocomplete.on('change', (e) => {
-  getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng);
+  getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng, displayWeather, weather);
 });
 // end algolia
 
