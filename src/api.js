@@ -1,7 +1,7 @@
 const KELVIN = 273;
 const KEY = '15b72f8181c849f71bb8b90b88730574';
 
-export const getWeather = async (latitude, longitude, displayWeather, weather) => {
+export const getWeather = async (latitude, longitude, displayWeather, weather, showError, err) => {
   const api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
   try {
     const fetchRequest = await fetch(api);
@@ -14,8 +14,7 @@ export const getWeather = async (latitude, longitude, displayWeather, weather) =
     weather.city = data.name;
     weather.country = data.sys.country;
     displayWeather(weather);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
+  } catch {
+    showError(err);
   }
 };

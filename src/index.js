@@ -1,8 +1,10 @@
 import './styles.scss';
 import celsiusToFahrenheit from './functions';
-import showError from './dom';
 import { getWeather } from './api';
-import { displayWeather } from './dom';
+import {
+  displayWeather,
+  showError
+} from './dom';
 
 
 const inputCity = document.getElementById('address-input');

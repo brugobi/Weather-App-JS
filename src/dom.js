@@ -1,5 +1,4 @@
 // get the elements
-
 const weatherIcon = document.querySelector('.weather-icon');
 const weatherDescription = document.querySelector('.description');
 const tempCelsius = document.querySelector('.temp-celsius');
@@ -18,8 +17,7 @@ export const displayWeather = (weather) => {
   todayDate.innerHTML = `${new Date().toDateString()}`;
 };
 
-
-  const showError = (error) => {
+export const showError = (error) => {
   const errorContainer = document.getElementById('errorContainer');
   const notificationDiv = document.createElement('div');
   notificationDiv.classList.add('columns');
@@ -30,5 +28,3 @@ export const displayWeather = (weather) => {
   notification.style.display = 'block';
   notification.innerHTML = `<p> ${error.message}</p>`;
 };
-
-export default showError;
