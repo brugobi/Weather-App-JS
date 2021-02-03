@@ -1,7 +1,9 @@
+//import { showError } from "./dom";
+
 const KELVIN = 273;
 const KEY = '15b72f8181c849f71bb8b90b88730574';
 
-export const getWeather = async (latitude, longitude, displayWeather, weather, showError, err) => {
+export const getWeather = async (latitude, longitude, displayWeather, weather) => {
   const api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${KEY}`;
   try {
     const fetchRequest = await fetch(api);
@@ -14,7 +16,21 @@ export const getWeather = async (latitude, longitude, displayWeather, weather, s
     weather.city = data.name;
     weather.country = data.sys.country;
     displayWeather(weather);
-  } catch {
-    showError(err);
+  } catch (err) {
+    console.log(err);
   }
 };
+
+export const getImagebyCity = async (city) => {
+  const image = document.getElementById('imgURL');
+  const apiURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=llFgOLuGurNxAhgZGUAW3Fuo4zM5O-Sv7Ws9h2sOa00`;
+  try {
+    const fetchData = await fectch(apiURL);
+    const dataCity = await fetchRequest.json();
+    const cityImageURL = dataCity.results[0].urls.full;
+    image.src = cityImageURL;
+    console.log(cityImageURL);
+  } catch (err) {
+    console.log(err);
+  }
+}
