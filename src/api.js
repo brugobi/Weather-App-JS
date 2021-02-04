@@ -16,6 +16,7 @@ export const getWeather = async (latitude, longitude, displayWeather, weather) =
     weather.city = data.name;
     weather.country = data.sys.country;
     displayWeather(weather);
+    return data.name;
   } catch (err) {
     console.log(err);
   }
@@ -23,10 +24,10 @@ export const getWeather = async (latitude, longitude, displayWeather, weather) =
 
 export const getImagebyCity = async (city) => {
   const image = document.getElementById('imgURL');
-  const apiURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=llFgOLuGurNxAhgZGUAW3Fuo4zM5O-Sv7Ws9h2sOa00`;
+  const apiURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=ID`;
   try {
-    const fetchData = await fectch(apiURL);
-    const dataCity = await fetchRequest.json();
+    const fetchData = await fetch(apiURL);
+    const dataCity = await fetchData.json();
     const cityImageURL = dataCity.results[0].urls.full;
     image.src = cityImageURL;
     console.log(cityImageURL);

@@ -1,11 +1,13 @@
 import './styles.scss';
 import celsiusToFahrenheit from './functions';
-import { getWeather } from './api';
+import {
+  getWeather,
+  getImagebyCity
+} from './api';
 import {
   displayWeather,
   showError
 } from './dom';
-
 
 const inputCity = document.getElementById('address-input');
 
@@ -16,10 +18,13 @@ weather.temperature = {
 };
 
 // user getCurrentPosition
-const setPosition = (position) => {
+const setPosition = async (position) => {
   const { latitude } = position.coords;
   const { longitude } = position.coords;
-  getWeather(latitude, longitude, displayWeather, weather);
+  const city = await getWeather(latitude, longitude, displayWeather, weather);
+  if (city) {
+    getImagebyCity(city);
+  }
 };
 
 // algolia autocomplete
@@ -35,8 +40,13 @@ const placesAutocomplete = places({
   container: inputCity,
 }).configure(options);
 
-placesAutocomplete.on('change', (e) => {
-  getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng, displayWeather, weather);
+placesAutocomplete.on('change', async (e) => {
+  const city = await getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng, displayWeather, weather);
+  if (city) {
+    getImagebyCity(city);
+  }
+  
+
 });
 // end algolia
 
@@ -44,7 +54,8 @@ const btnLocaltion = document.querySelector('.btnLocation');
 btnLocaltion.addEventListener('click', () => {
   // check browser support geolocation
   if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(setPosition, showError);
+    const geoLocation = navigator.geolocation.getCurrentPosition(setPosition, showError);
+    console.log(geoLocation);
   } else {
     // eslint-disable-next-line no-undef
     notification.style.display = 'block';
