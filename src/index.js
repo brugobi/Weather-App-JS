@@ -2,11 +2,11 @@ import './styles.scss';
 import celsiusToFahrenheit from './functions';
 import {
   getWeather,
-  getImagebyCity
+  getImagebyCity,
 } from './api';
 import {
   displayWeather,
-  showError
+  showError,
 } from './dom';
 
 const inputCity = document.getElementById('address-input');
@@ -45,8 +45,6 @@ placesAutocomplete.on('change', async (e) => {
   if (city) {
     getImagebyCity(city);
   }
-  
-
 });
 // end algolia
 

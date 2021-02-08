@@ -1,4 +1,4 @@
-//import { showError } from "./dom";
+// import { showError } from "./dom";
 
 const KELVIN = 273;
 const KEY = '15b72f8181c849f71bb8b90b88730574';
@@ -18,20 +18,23 @@ export const getWeather = async (latitude, longitude, displayWeather, weather) =
     displayWeather(weather);
     return data.name;
   } catch (err) {
-    console.log(err);
+    return Promise.reject(alert);
   }
 };
 
 export const getImagebyCity = async (city) => {
-  const image = document.getElementById('imgURL');
-  const apiURL = `https://api.unsplash.com/search/photos?query=${city}&client_id=ID`;
+  const body = document.body;
+  
+  const apiURL = `https://api.unsplash.com/photos/random?count=1&query=${city}&client_id=id`;
   try {
     const fetchData = await fetch(apiURL);
-    const dataCity = await fetchData.json();
-    const cityImageURL = dataCity.results[0].urls.full;
-    image.src = cityImageURL;
-    console.log(cityImageURL);
+
+    if (fetchData.status === 200) {
+      const [{ urls: { regular } }] = await fetchData.json();
+      
+      body.style.background = `url(${regular}) center center / cover no-repeat`;
+    }
   } catch (err) {
-    console.log(err);
+    return Promise.reject(alert);
   }
-}
+};
