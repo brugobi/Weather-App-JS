@@ -4,13 +4,13 @@
 
 ## Feature
 
-- Get weather informations by getting the user location if the user accept it;
-- Get weather informations by typing the city's name;
+- Get weather information by getting the user location if the user accept it;
+- Get weather information by typing the city's name;
 - Autocomplete functionality for cities names;
 - Temperature available in Celsius and Fahrenheit by clicking on the temperature number
 
 
-![home_page](./src/assets/weather.png)
+![home_page](./src/assets/homepage2.png)
 
 ## Built With
 
@@ -21,8 +21,9 @@
 - Bulma
 - SCSS
 - Linter
-- Open Weather API
-- Algolia API
+- [Open Weather API](https://openweathermap.org)
+- [Algolia API](https://www.algolia.com/doc/)
+- [Unsplash API](https://unsplash.com/documentation)
 
 ## Live Demo
 
@@ -83,6 +84,7 @@ Feel free to check the [issues page](issues/).
 ## Acknowledgments
 
 - Project requested by [Microverse Program](https://www.microverse.org/).
+- The default image was taken from [Pixabay](https://pixabay.com/pt/).
 
 ## 📝 License
 

@@ -22,16 +22,17 @@ export const getWeather = async (latitude, longitude, displayWeather, weather) =
   }
 };
 
+// eslint-disable-next-line consistent-return
 export const getImagebyCity = async (city) => {
-  const body = document.body;
-  
-  const apiURL = `https://api.unsplash.com/photos/random?count=1&query=${city}&client_id=id`;
+  const { body } = document;
+
+  const apiURL = `https://api.unsplash.com/photos/random?count=1&query=${city}&client_id=`;
   try {
     const fetchData = await fetch(apiURL);
 
     if (fetchData.status === 200) {
       const [{ urls: { regular } }] = await fetchData.json();
-      
+
       body.style.background = `url(${regular}) center center / cover no-repeat`;
     }
   } catch (err) {

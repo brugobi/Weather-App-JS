@@ -41,6 +41,7 @@ const placesAutocomplete = places({
 }).configure(options);
 
 placesAutocomplete.on('change', async (e) => {
+  // eslint-disable-next-line max-len
   const city = await getWeather(e.suggestion.latlng.lat, e.suggestion.latlng.lng, displayWeather, weather);
   if (city) {
     getImagebyCity(city);
@@ -52,8 +53,8 @@ const btnLocaltion = document.querySelector('.btnLocation');
 btnLocaltion.addEventListener('click', () => {
   // check browser support geolocation
   if ('geolocation' in navigator) {
+    // eslint-disable-next-line no-unused-vars
     const geoLocation = navigator.geolocation.getCurrentPosition(setPosition, showError);
-    console.log(geoLocation);
   } else {
     // eslint-disable-next-line no-undef
     notification.style.display = 'block';
