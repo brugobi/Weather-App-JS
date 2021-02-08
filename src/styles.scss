@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+@import "~bulma/bulma";
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  background: url(https://cdn.pixabay.com/photo/2021/01/19/14/45/alley-5931413_960_720.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#wrapper {
+  min-height: 100%;
+}
+
+.is-half {
+  background-color: rgb(28, 84, 144);
+  opacity: 0.8;
+}
+
+.icon-div {
+  border-radius: 5px;
+  background-color: rgb(124, 196, 238);
+}
+
+.temperature {
+  cursor: pointer;
+}
