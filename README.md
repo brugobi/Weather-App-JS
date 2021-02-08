@@ -4,7 +4,7 @@
 
 ## Feature
 
-- Get weather information by getting the user location if the user accept it;
+- Get weather information by getting the user location if the user accepts it;
 - Get weather information by typing the city's name;
 - Autocomplete functionality for cities names;
 - Temperature available in Celsius and Fahrenheit by clicking on the temperature number
